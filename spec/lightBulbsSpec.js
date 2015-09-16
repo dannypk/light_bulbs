@@ -1,12 +1,12 @@
 /**
  * Created by daniel.pacurici on 16.09.2015.
  */
-var bulbs = require('../app/light_bulbs.js');
+var game = require('../app/light_bulbs.js');
 
 describe("When value is yellow", function () {
-    var board;
+    var bulb;
     beforeEach(function () {
-        board = new bulbs.Board();
+        bulb = new game.Bulbs();
     });
 
     describe("we press the button", function () {
@@ -15,34 +15,33 @@ describe("When value is yellow", function () {
         beforeEach(function () {
             row = 1;
             col = 1;
-            board.shouldToggle(row, col);
+            bulb.shouldToggle(row, col);
         });
 
         it("should toggle the current value", function () {
-            expect(board.table[row][col]).toBe(1);
+            expect(bulb.board[row][col]).toBe(1);
         });
 
         describe("when value isn't the last row", function () {
             it("should toggle the bottom value as well", function () {
-                expect(board.table[row + 1][col]).toBe(1);
+                expect(bulb.board[row + 1][col]).toBe(1);
             })
         });
-
         describe("when value isn't the first column", function () {
             it("should toggle the top value", function () {
-                expect(board.table[row - 1][col]).toBe(1);
+                expect(bulb.board[row - 1][col]).toBe(1);
             })
         });
 
         describe("when value isn't the first column", function () {
             it("should toggle the left value", function () {
-                expect(board.table[row][col - 1]).toBe(0);
+                expect(bulb.board[row][col - 1]).toBe(0);
             })
         });
 
         describe("when value isn't the last column", function () {
             it("should toggle the right value", function () {
-                expect(board.table[row][col + 1]).toBe(1);
+                expect(bulb.board[row][col + 1]).toBe(1);
             })
         });
 
@@ -61,47 +60,66 @@ describe("When value is yellow", function () {
 });
 
 describe("When parsing the array lines", function () {
-    var board;
+    var bulb;
     beforeEach(function () {
-        board = new bulbs.Board();
+        bulb = new game.Bulbs();
     });
 
     describe("When yellow value is encountered", function () {
         beforeEach(function () {
-            spyOn(board, 'toggle');
-            board.shouldToggle(1, 1);
+            spyOn(bulb, 'toggle');
+            bulb.shouldToggle(1, 1);
         });
 
         it('toggles', function () {
-            expect(board.toggle).toHaveBeenCalled();
+            expect(bulb.toggle).toHaveBeenCalled();
         });
     });
 
     describe("When black value is encountered", function () {
         beforeEach(function () {
-            spyOn(board, 'toggle');
-            board.shouldToggle(0, 0);
+            spyOn(bulb, 'toggle');
+            bulb.shouldToggle(0, 0);
         });
 
         it('it should not toggle', function () {
-            expect(board.toggle).not.toHaveBeenCalled();
+            expect(bulb.toggle).not.toHaveBeenCalled();
         });
     });
 });
 
-describe("When array it's given", function () {
-    var board;
+describe("When board is given", function () {
+    var bulb;
     beforeEach(function () {
-        board = new bulbs.Board();
+        bulb = new game.Bulbs();
     });
-
 
     describe("And all bulbs are turned off", function () {
         beforeEach(function () {
-            board.table = [[1, 1], [1, 1]]
+            bulb.board = [[1, 1], [1, 1]]
         });
         it("should return true", function () {
-            expect(board.isTurnedOff()).toBe(true);
+            expect(bulb.isTurnedOff()).toBe(true);
+        });
+    });
+
+    describe("And bulbs aren't turned off", function () {
+        beforeEach(function () {
+            bulb.toggle(0, 2);
+            bulb.toggle(2, 1);
+        });
+        it("should turn off all the bulbs by manual toggling", function () {
+            expect(bulb.isTurnedOff()).toBe(true);
+        });
+    });
+
+    describe("And bulbs aren't turned off", function () {
+        beforeEach(function () {
+            //bad approach using prototype.
+            //bulb.turnOff();
+        });
+        it("should turn off all the bulbs by script toggling", function () {
+            expect(bulb.isTurnedOff()).toBe(false);
         });
     });
 });
