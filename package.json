@@ -1,0 +1,22 @@
+{
+  "name": "light_bulbs",
+  "version": "1.0.0",
+  "description": "offline task - light bulbs",
+  "main": "index.js",
+  "scripts": {
+    "test": "node ./node_modules/.bin/jasmine-node spec"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dannypk/light_bulbs.git"
+  },
+  "author": "danny pk",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dannypk/light_bulbs/issues"
+  },
+  "homepage": "https://github.com/dannypk/light_bulbs#readme",
+  "dependencies": {
+    "jasmine-node": "^1.14.5"
+  }
+}
