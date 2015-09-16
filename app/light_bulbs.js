@@ -5,18 +5,9 @@ module.exports = {
     sum: function (a, b) {
         return a + b;
     },
-    init: init
+    createBoard: createBoard
 };
 
-function init(n) {
-    if (n === 0) return undefined;
-
-    var game = [n];
-    for (var i = 0; i < n; i++) {
-        game[i] = [n];
-        for (var j = 0; j < n; j++) {
-            game[i][j] = Math.round(Math.random());
-        }
-    }
-    return game;
+function createBoard() {
+    return [[1,0,0],[1,0,0],[0,0,0]];
 }
